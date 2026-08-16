@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — NexaShop{% endblock %}
+{% block content %}
+
+<div class="container" style="padding-top: 2rem">
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">Home</a>
+        <i class="fa fa-chevron-right"></i>
+        <a href="{{ url_for('products') }}">Products</a>
+        <i class="fa fa-chevron-right"></i>
+        <a href="{{ url_for('products') }}?category={{ product.category }}">{{ product.category }}</a>
+        <i class="fa fa-chevron-right"></i>
+        <span>{{ product.name }}</span>
+    </nav>
+</div>
+
+<div class="container product-detail">
+    <div class="product-detail_grid">
+
+        <div class="product-detail_images">
+            <div class="product-detail_main-img">
+                <img src="{{ product.image }}" alt="{{ product.name }}" id="mainImg" />
+                {% if product.badge %}
+                    <span class="product-card_badge badgge--{{ product.badge.lower().replace(' ', '-') }}">{{ product.badge }}</span>
+                {% endif %}
+            </div>
+            <div class="product-detail_thumbs">
+                <img src="{{ product.image }}" alt="{{ product.name }}" class="thumb active" onclick="setMainImg(this)" />
+                <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=120&q=70" alt="" class="thumb" onclick="setMainImg(this)" />
+                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=120&q=70" alt="" class="thumb" onclick="setMainImg(this)" />
+            </div>
+        </div>
+
+        <div class="product-detail_info">
+            <div class="product-detail_cat">{{ product.category }}</div>
+            <h1 class="product-detail_name">{{ product.name }}</h1>
+
+            <div class="product-detail_rating">
+                {% for i in range(5) %}
+                    <i class="fa fa-star{% if loop.index > product.rating|round|int %}-o{% endif %}"></i>
+                {% endfor %}
+                <span class="rating-val">{{ product.rating }}</span>
+                <span class="rating-count">({{ product.reviews }} reviews)</span>
+            </div>
+
+            <div class="product-detail_price">
+                <span class="price--current price--lg">${{ "%.2f"|format(product.price) }}</span>
+                {% if product.original_price %}
+                    <span class="price--original">${{ "%.2f"|format(product.original_price) }}</span>
+                    <span class="price--save">
+                        {{ "%.2f"|format((product.original_price - product.price) / product.original_price * 100) }}% OFF
+                    </span>
+                {% endif %}
+            </div>
+
+            <p class="product-detail_desc">{{ product.description }}</p>
+
+            <div class="product-detail_features">
+                <h4>Key Features</h4>
+                <ul>
+                    {% for f in product.features %}
+                    <li><i class="fa fa-check"></i></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="product-detail_stock">
+                {% if product.stock > 10 %}
+                    <span class="stock-badge stock-badge--ok"><i class="fa fa-check-circle"></i>In Stock ({{ product.stock }} available)</span>
+                {% elif product.stock > 0 %}
+                    <span class="stock-badge stock-badge--low"><i class="fa fa-exclamation-circle"></i> Low Stock — only {{ product.stock }} left!</span>
+                {% else %}
+                    <span class="stock-badge stock-badge--out"><i class="fa fatimes-circle"></i> Out of Stock</span>
+                {% endif %}
+            </div>
+            
+            <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" class="product-detail_form">
+                <div class="qty-control">
+                    <button type="button" onclick="changeQty(-1)">−</button>
+                    <input type="number" name="qty" id="qtyInput" value="1" min="1" max="{{ product.stock }}" />
+                    <button type="button" onclick="changeQty(1)">+</button>
+                </div>
+                <button type="submit" class="btn btn--primary btn--lg" {% if product.stock == 0 %}disabled{% endif %}>
+                    <i class="fa fa-shopping-bag"></i>
+                    {% if in_cart  %}Update Cart{% else %}Add to Cart{% endif %}
+                </button>
+                <a href="{{ url_for('toggle_wishlist', product_id=product.id) }}" class="btn btn--ghost btn--lg btn--icon" title="Wishlist">
+                    <i class="fa fa-heart"></i>
+                </a>
+            </form>
+
+            <div class="product-detail_meta">
+                <div><i class="fa fa-truck"></i> Free shipping on orders over $100</div>
+                <div><i class="fa fa-rotate-left"></i> 30-day free returns</div>
+                <div><i class="fa fa-shshield-alt"></i> 2-year manufacturer warranty</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-tabs">
+        <div class="product-tabs_nav">
+            <button class="tab-btn active" data-tab="desccription">Description</button>
+            <button class="tab-btn" data-tab="specs">Specifications</button>
+            <button class="tab-btn" data-tab="reviews">Reviews ({{ product.reviews }})</button>
+        </div>
+        <div class="product-tabs_content">
+            <div class="tab-panel active" id="tab-descriptionn">
+                <p>{{ product.description }}</p>
+                <br>
+                <p>Experience premium quality with our {{ product.name }}. Engineered for performance and designed for everyday use, this product delivers exceptional results that exceed expectations.</p>
+                <ul>
+                    {% for f in product.features %}
+                        <li>{{ f }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-panel" id="tab-specs">
+                <table class="specs-table">
+                    <tr><th>category</th><td>{{ product.category }}</td></tr>
+                    <tr><th>Rating</th><td>{{ product.rating }}  / 5.0</td></tr>
+                    <tr><th>Reviews</th><td>{{ product.reviews }}</td></tr>
+                    <tr><th>Stocks</th><td>{{ product.stock }} units</td></tr>
+                    <tr><th>Price</th><td>${{ ".2f"|format(product.stock) }}</td></tr>
+                    {% for f in product.features %}
+                    <tr><th>Feature {{ loop.index }}</th><td>{{ f }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="tab-panel" id="tab-reviews">
+                <div class="review-summary">
+                    <div class="review-score">
+                        <span class="review-score_num">{{ product.rating }}</span>
+                        <div>
+                            {% for i in range(5) %}
+                                <i class="fa fa-star{% if loop.index > product.rating|round|int %}-o{% endif %}"></i>
+                            {% endfor %}
+                            <div>Based on {{ product.reviews }} reviews</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-list">
+                    <div class="review-item">
+                        <div class="review-item_header">
+                            <strong>Alex M.</strong>
+                            <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                            <span class="review-date">Dec 2024</span>
+                        </div>
+                        <p>Absolutely love this product! Exceeded all my expectations. Build quality is exceptional and performance is flawless.</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-item_header">
+                            <strong>Sarah K.</strong>
+                            <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></div>
+                            <span class="review-date">Nov 2024</span>
+                        </div>
+                        <p>Great product overall. Delivery was fast and packaging was secure. Would definitely recommend to friends.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if related %}
+    <div class="related-products">
+        <div class="section_header">
+            <h2>Related Products</h2>
+        </div>
+        <div class="product-grid product-grid-4">
+            {% for p in related %}
+            <div class="product-card">
+                <div class="product-card_img-wrap">
+                    <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy">
+                    <div class="product-card_overlay">
+                        <a href="{{ url_for('product_detail', product_id=p.id) }}" class="btn btn--primary btn--sm">View</a>
+                    </div>
+                </div>
+                <div class="product-card_body">
+                    <h3 class="product-card_name"><a href="{{ url_for('product_detail', product_id=p.id) }}">{{ p.name }}</a></h3>
+                    <div class="priduct-card_price">
+                        <span class="price-current">${{ "%.2f"|format(p.price) }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function setMainImg(el){
+        document.getElementById('mainImg').src=el.src.replace('w=120', 'w=600');
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function changeQty(d){
+        const inp =document.getElementById('qtyInpuut');
+        inp.value = Math.max(1, Math.min(parseInt(inp.value) + d,{{ product.stock }}));
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn =>{
+        btn.addEventListener('click', ()=>{
+            document.querySelectorAll('.tab-btn, .tab-pannel').forEach(el=>el.classList.add('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        });
+    });
+</script>
+
+{% endblock %}

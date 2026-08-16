@@ -1,0 +1,180 @@
+{$ extends "base.html" $}
+{% block title %}Checkout — NexaShop{% endblock %}
+{% block content %}
+
+<div class="page-hero page-hero-sm">
+    <div class="container">
+        <h1>Checkout</h1>
+        <div class="checkout-steps">
+            <div class="step active"><span>1</span> Shipping</div>
+            <div class="step-line"></div>
+            <div class="step"><span>2</span> Payment</div>
+            <div class="step-line"></div>
+            <div class="step"><span>3</span> Confirm</div>
+        </div>
+    </div>
+</div>
+<div class="container checkout-page">
+    <form action="{{ url_for('checkout') }}" method="POST" id="checkoutForm">
+        <div class="checkout-layout">
+
+            <div class="checkout-forms">
+                <div class="checkout-section">
+                    <h3><i class="fa fa-user"></i> Contact Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" name="name" class="form-input" required value="{{ user.name if user else '' }}" placeholder="Kumar" />
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" class="form-input" required value="{{ user.email if user else '' }}" placeholder="kumar@example.com" />
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="+91 00000-00000" />
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout-section">
+                    <h3><i class="fa fa-truck"></i> Shipping Address</h3>
+                    <div class="form-grid">
+                        <div class="form-group form-group-full">
+                            <label>Street Address</label>
+                            <input type="text" name="address" class="form-input" required placeholder="123 Main Street, Apt 4B" />
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" name="city" class="form-input" required placeholder="Chennai" />
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" name="state" class="form-input" placeholder="TN" />
+                        </div>
+                        <div class="form-group">
+                            <label>ZIP / Postal Code</label>
+                            <input type="text" name="zip" class="form-input" placeholder="603-319" />
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select type="text" name="country" class="form-input">
+                                <option>India</option>
+                                <option>Sri Lanka</option>
+                                <option>Bangladhesh</option>
+                                <option>China</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout-section">
+                    <h3><i class="fa fa-box"></i> Shipping Method</h3>
+                    <div class="shipping-options">
+                        <label class="shipping-option">
+                            <input type="radio" name="shipping_method" value="standard" checked  />
+                            <div class="shipping-option_info">
+                                <strong>Standard Shipping</strong>
+                                <span>5-7 business days</span>
+                            </div>
+                            <span class="shipping-option_price">{% if subtotsl >= 100 %}Free{% else %}$9.99{% endif %}</span>
+                        </label>
+                        <label class="shipping-option">
+                            <input type="radio" name="shipping_method" value="express" />
+                            <div class="shipping-option_info">
+                                <strong>Express Shipping</strong>
+                                <span>2-3 business days</span>
+                            </div>
+                            <span class="shipping-option_price">$19.99</span>
+                        </label>
+                        <label class="shipping-option">
+                            <input type="radio" name="shipping_method" value="overnight" />
+                            <div class="shipping-option_info">
+                                <strong>Overnight</strong>
+                                <span>Next business day</span>
+                            </div>
+                            <span class="shipping-option_price">$39.99</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h3><i class="fa fa-credit-card"></i> Payment Details</h3>
+                    <div class="payment-methods">
+                        <label class="payment-method active">
+                            <input type="radio" name="payment" value="card" checked />
+                            <i class="fa fa-credit-card"></i> Credit / Debit Card
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="paypal" />
+                            <i class="fa fa-paypal"></i> PayPal
+                        </label>
+                    </div>
+                    <div class="form-grid" id="cardFields">
+                        <div class="form-group form-group-full">
+                            <label>Card Number</label>
+                            <input type="text" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" />
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label>Cardholder Name</label>
+                            <input type="text" class="form-input" placeholder="Kumar" />
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label>Expiry Date</label>
+                            <input type="text" class="form-input" placeholder="MM / YY" maxlength="7"/>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label>CVV</label>
+                            <input type="text" class="form-input" placeholder="123" maxlength="3" />
+                        </div>
+                    </div>
+                    <div class="secure-notice"><i class="fa fa-lock"></i> Your payment information is encrypted and secure.</div>
+                </div>
+            </div>
+            <div class="checkout-summary">
+                <div class="cart-summary">
+                    <div class="cart-summary_card">
+                        <h3>Order Summary</h3>
+                        {% for item in items %}
+                        <div class="checkout-item">
+                            <img src="{{ item.image }}" alt="{{ item.name }}">
+                            <div class="checkout-item_info">
+                                <span>{{ item.name }}</span>
+                                <span class="checkout-item_qty">× {{ item.qty }}</span>
+                            </div>
+                            <span>${{ "%.2f"|format(item.subtotal) }}</span>
+                        </div>
+                        {% endfor %}
+                        <hr />
+                        <div class="cart-summary_row">
+                            <span>Subtotal</span><span>${{ "%.2f"|format(subtotal) }}</span>
+                        </div>
+                        <div class="cart-summary_row">
+                            <span>Shipping</span>
+                            <span>{% if shipping == 0 %}<span class="free-ship">FREE</span>{% else %}${{ "%,2f"|format(shipping) }}{% endif %}</span>
+                        </div>
+                        <div class="cart-summary__row">
+                            <span>Tax</span><span>${{ "%.2f"|format(tax) }}</span>
+                        </div>
+                        <hr />
+                        <div class="cart-summary_row cart-summary_total">
+                            <strong>Total</strong>
+                            <strong>${{ "%.2f"|format(total) }}</strong>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full btn-lg">
+                            <i class="fa fa-lock"></i> Place Order — ${{ "%.2f"|format(total) }}
+                        </button>
+                        <p class="checkout-terms">By placing your order you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function formatCard(inp) {
+        let v = inp.value.replace(/\D/g,'').substring(0,16);
+        inp.value = v.replace(/(.{4})/g,'$1').trim();
+    }
+</script>
+{% endblock %}

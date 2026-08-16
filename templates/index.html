@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% block title %}NexaShop — Premium Tech Store{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="hero_inner">
+        <div class="hero_content">
+            <span class="hero_eyebrow">New Arrivals 2026</span>
+            <h1 class="hero_title">Tech That<br><em>Elevates</em> Your <br>
+            Everyday</h1>
+            <p class="hero_sub">Curated premiuum electronics, smart home devvices, and productivity gear=all in one place. Free shipping over $100.</p>
+            <div class="heroa_actions">
+                <a href="{{ url_for('products') }}" class="btn btn--primary btn--lg">Shop Now <i class="fa fa-arrow-right"></i></a>
+                <a href="{{ url_for('products') }}?category=Electronics" class="btn btn--ghost btn--lg">Electronics</a>
+            </div>
+            <div class="hero_stats">
+                <div class="hero_stat"><strong>12k</strong><span>Products</span></div>
+                <div class="hero_stat"><strong>50k</strong><span>Customers</span></div>
+                <div class="hero_stat"><strong>4.8★</strong><span>Avg Rating</span></div>
+            </div>
+        </div>
+        <div class="hero_visual">
+            <div class="hero_img-wrap">
+                <img src="https://images.unsplash.com/phot0-1505740420928-5e560c06d30e?w=600&q=80" alt="Premium Headphones" />
+                <div class="hero_float hero_float-1">
+                    <i class="fa fa-star"></i>4.8 Rating
+                </div>
+                <div class="hero_float hero_float-2">
+                    <i class="fa fa-truck">Free Shipping</i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="trust-bar">
+    <div class="trust-bar_inner">
+        <div class="trust-bar_item"><i class="fa fa-truck"><span>Free Shipping over $100.</span></i></div>
+        <div class="trust-bar_item"><i class="fa fa-rotate-left"><span>30-days Returns</span></i></div>
+        <div class="trust-bar_item"><i class="fa fa-sheid-alt"><span>2-Year Warranty</span></i></div>
+        <div class="trust-bar_item"><i class="fa fa-headset"><span>24/7 Support</span></i></div>
+        
+        
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="section_header">
+            <h2>Shop by Category</h2>
+            <a href="{{ url_for('products') }}" class="section_link">Veiw all<i class="fa fa-arrow-right"></i></a>
+        </div>
+        <div class="cat-grid">
+            <a href="{{ url_for('products') }}?category=Electronics" class="cat-card cat-card-electronics">
+                <i class="fa fa-laptop"></i>
+                <span>Electronics</span>
+                <em>120+ items</em>
+            </a>
+            <a href="{{ url_for('products') }}?category=Wearables" class="cat-card cat-card-wearables">
+                <i class="fa fa-watch"></i>
+                <span>Wearables</span>
+                <em>45+ items</em>
+            </a>
+            <a href="{{ url_for('products') }}?category=accessories" class="cat-card cat-card-accessories">
+                <i class="fa fa-plug"></i>
+                <span>Accessories</span>
+                <em>200+ items</em>
+            </a>
+            <a href="{{ url_for('products') }}?category=Smart+Home" class="cat-card cat-card-smarthome">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+                <em>60+ items</em>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section--alt">
+    <div class="container">
+        <div class="section_header">
+            <h2>Best Sellers</h2>
+            <a href="{{ url_for('product') }}" class="section_link">View all<i class="fa fa-arrow-right"></i></a>
+        </div>
+        <div class="product-grid">
+            {% for p in featured %}
+            <div class="product-card" data-id="{{ p.id }}">
+                <div class="product-card_img-wrap">
+                    <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" />
+                    {{% if p.badge %}}
+                        <span class="product-card_badge badge--{{ p.badge.lower().replace(' ', '-') }}">{{ p.badge }}</span>
+                    {{% endif %}}
+                    <div class="product-card_overlay">
+                        <a href="{{ url_for('product_details', product_id=p.id) }}" class="btn btn--primary btn--sm">View Details</a>
+                        <a href="{{ urla-for('toggle_wishlist', product_id=p.id) }}" class="btn btn--ghost btn--sm btn--icon"><i class="fa fa-heart"></i></a>
+                    </div>
+                </div>
+                <div class="product-card_body">
+                    <div class="product-card_cat">{{ p.category }}</div>
+                    <h3 class="product-card_name">
+                        <a href="{{ url_for('product_detail', product_id=p.id) }}">{{ p.name }}</a>
+                    </h3>
+                    <div class="product-card_ratinng">
+                        {% for i in range(5) %}
+                            <i class="fa fa-star{% if i >= p.rating|round|int %}-0{% endif %}"></i>
+                        {% endfor %}
+                        <span>({ p.reviews })</span>
+                    </div>
+                    <div class="product-card_price">
+                        <span class="price-current">${{ "%.2f"|format(p.price) }}</span>
+                        {% if p.original_price %}
+                            <span class="price--original">${{ "%.2f|format(p.original_price) }}</span>
+                            <span class="price--save">Save ${{ "%.0f"|format(p.original_price -p.price) }}</span>
+                        {% endif %}
+                    </div>
+                    <form action="{{ url_for('add_to_cart', product_id=p.id) }}" method="POST">
+                        <input type="hidden" name="qty" value="1" />
+                        <button type="submit" class="btn btn--primary btn--full">
+                            <i class="fa fa-shopping-bag"></i> Add to cart
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="promo-banner">
+    <div class="promo-banner_inner">
+        <div class="promo-bannera_text">
+            <span class="promo-banner_eyebrow">Limited Time Offer</span>
+            <h2>Up to 40% Off<br>Premium Headphones</h2>
+            <p>Studio-quality audio at prices that  make sense. Shop our audio collection today.</p>
+            <a href="{{ url_for('product') }}?category=Electronics" class="btn btn--white btn--lg">Shop Audio</a>
+        </div>
+        <div class="promoo-banner_img">
+            <img src="" alt="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80" alt="Earbuds">
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section_header">
+            <h2>New Arrivals</h2>
+            <a href="{{ url_for('products') }}?badge=New" class="section_link">View all<i class="fa fa-arrow-right"></i></a>
+        </div>
+        <div class="product-grid product-grid-3">
+            {% for p in new_arrivals %}
+            <div class="product-card">
+                <div clcass="product-card_img-wrap">
+                    <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" />
+                    <span class="product-card_badge badge--new">New</span>
+                    <div class="product-card_overlay">
+                        <a href="{{ url_for('product_detail', product_id=p.id) }}" class="btn btn--primary btn--sm">View Details</a>
+                    </div>
+                </div>
+                <div class="product-card_body">
+                    <div class="product-card_cat">{{ p.category }}</div>
+                    <h3 class="product-card_name"><a href="{{ url_for('product_details', product_id=p.id) }}">{{ p.name }}</a></h3>
+                    <div class="product-card_price">
+                        <span class="price--current">${{ "$.2f"|format(p.price) }}</span>
+                    </div>
+                    <form action="{{ url_for('add_to_cart', product_id=p.id) }}" method="POST">
+                        <input type="hidden" name="qty" value="1" />
+                        <button type="submit" class="btn btn--outline btn--full">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="newsletter">
+    <div class="container">
+        <div class="newsletter_inner">
+            <div class="newsletter_text">
+                <h2>Stay in the loop</h2>
+                <p>Get exclusive deals, early access, and tech news delivered to your inbox.</p>
+            </div>
+            <form class="newsletter_form" onsubmit="handleNewsletter(event)">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn--primary">Subscribe</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

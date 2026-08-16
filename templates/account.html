@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}My Account — NexaShop{% endblock %}
+{% block content %}
+<div class="page-hero page-hero--sm">
+    <div class="container">
+        <h1>My Account</h1>
+        <p>Welcome back, {{ user.name }}!</p>
+    </div>
+</div>
+<div class="container account-page"> 
+    <div class="account-layout">
+        <aside class="avatar-sidebar">
+            <div class="account-avatar">
+                <div class="avatar-circle">{{ user.name[0].upper() }}</div>
+                <div>
+                    <strong>{{ user.name }}</strong>
+                    <strong>{{ user.email }}</strong>
+                </div>
+            </div>
+            <nav class="account-nav">
+                <a href="{{ url_for('account') }}" class="active"><i class="fa fa-user"></i>Profile</a>
+                <a href="{{ url_for('wishlist') }}"><i class="fa fa-heart"></i>Wishlist</a>
+                <a href="{{ url_for('cart') }}"><i class="fa fa-shopping-bag"></i>Cartt</a>
+                <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i>Sign Out</a>
+            </nav>
+        </aside>
+        <div class="account-main">
+            <div class="account-section">
+                <h3>Profile Information</h3>
+                <div class="profile-info">
+                    <div><label>Name</label><Span>{{ user.name }}</Span></div>
+                    <div><label>Email</label><Span>{{ user.email }}</Span></div>
+                    <div><label>Member Since</label><Span>2024</Span></div>
+                </div>
+            </div>
+            <div class="account-section">
+                <h3>Order History</h3>
+                {% if user.orders %}
+                    {% for order in user.orders %}
+                    <div class="order-row">
+                        <div><strong>{{ order.id }}</strong></div>
+                        <div>{{ order.time|length }} item{{ 's' if order.tems|lenth !=1 }}</div>
+                        <div>${{ "%.2f"|format(order.total) }}</div>
+                        <div><span class="order-status">{{ order.status }}</span></div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state" style="padding:2rem 0">
+                        <i class="fa fa-box-open"></i>
+                        <p>No orders yet. <a href="{{ url_for('products') }}">Start shopping!</a></p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

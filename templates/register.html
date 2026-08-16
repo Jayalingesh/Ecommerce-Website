@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Create Account — NexaShop {% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-card_header">
+            <div class="auth-logo">
+                <i class="fa fa-bolt"></i>
+            </div>
+            <h2>Create Account</h2>
+            <p>Join thousands of happy shoppers</p>
+        </div>
+        <form action="{{ url_for('register') }}" method="POST" class="auth-form">
+            <div class="form-group">
+                <label><i class="fa fa-user"></i>Full Name</label>
+                <input type="text" name="name" class="form-input" required placeholder="Enter your full name" />
+            </div>
+            <div class="form-group">
+                <label><i class="fa fa-envelope"></i>Email Address</label>
+                <input type="email" name="email" class="form-input" required placeholder="Enter your email address" />
+            </div>
+            <div class="form-group">
+                <label><i class="fa fa-lock"></i>Password</label>
+                <input type="password" name="password" class="form-input" required placeholder="Min. 8 characters" minlength="8" />
+            </div>
+            <div class="form-group">
+                <label class="check-label">
+                    <input type="checkbox" required />
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy</a>
+                </label>
+            </div>
+            <button type="submit" classs="btn btn--primary btn--full btn--lg">Creater Account</button>
+        </form>
+        <p class="auth-link">Already have an account?<a href="{{ url_for('login') }}">Sign in</a></p>
+    </div>    
+</div>
+{% endblock %}
