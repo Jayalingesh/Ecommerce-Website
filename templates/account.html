@@ -40,7 +40,7 @@
                     <div class="order-row">
                         <div><strong>{{ order.id }}</strong></div>
                         <div>{{ order.items|length }} item{{ 's' if order.items|length !=1 }}</div>
-                        <div>${{ "%.2f"|format(order.total) }}</div>
+                        <div>₹{{ "%.2f"|format(order.total) }}</div>
                         <div><span class="order-status">{{ order.status }}</span></div>
                     </div>
                     {% endfor %}

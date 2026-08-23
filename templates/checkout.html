@@ -75,7 +75,7 @@
                                 <strong>Standard Shipping</strong>
                                 <span>5-7 business days</span>
                             </div>
-                            <span class="shipping-option_price">{% if subtotal >= 100 %}Free{% else %}$9.99{% endif %}</span>
+                            <span class="shipping-option_price">{% if subtotal >= 100 %}Free{% else %}₹72.99{% endif %}</span>
                         </label>
                         <label class="shipping-option">
                             <input type="radio" name="shipping_method" value="express" />
@@ -83,7 +83,7 @@
                                 <strong>Express Shipping</strong>
                                 <span>2-3 business days</span>
                             </div>
-                            <span class="shipping-option_price">$19.99</span>
+                            <span class="shipping-option_price">₹159.99</span>
                         </label>
                         <label class="shipping-option">
                             <input type="radio" name="shipping_method" value="overnight" />
@@ -91,7 +91,7 @@
                                 <strong>Overnight</strong>
                                 <span>Next business day</span>
                             </div>
-                            <span class="shipping-option_price">$39.99</span>
+                            <span class="shipping-option_price">₹312.99</span>
                         </label>
                     </div>
                 </div>
@@ -140,28 +140,28 @@
                                 <span>{{ item.name }}</span>
                                 <span class="checkout-item_qty">× {{ item.qty }}</span>
                             </div>
-                            <span>${{ "%.2f"|format(item.subtotal) }}</span>
+                            <span>₹{{ "%.2f"|format(item.subtotal) }}</span>
                         </div>
                         {% endfor %}
                         <hr />
                         <div class="cart-summary_row">
-                            <span>Subtotal</span><span>${{ "%.2f"|format(subtotal) }}</span>
+                            <span>Subtotal</span><span>₹{{ "%.2f"|format(subtotal) }}</span>
                         </div>
                         <div class="cart-summary_row">
                             <span>Shipping</span>
-                            <span>{% if shipping == 0 %}<span class="free-ship">FREE</span>{% else %}${{ "%.2f"|format(shipping) }}{% endif %}</span>
+                            <span>{% if shipping == 0 %}<span class="free-ship">FREE</span>{% else %}₹{{ "%.2f"|format(shipping) }}{% endif %}</span>
                         </div>
                         <div class="cart-summary_row">
-                            <span>Tax</span><span>${{ "%.2f"|format(tax) }}</span>
+                            <span>Tax</span><span>₹{{ "%.2f"|format(tax) }}</span>
                         </div>
                         <hr />
                         <div class="cart-summary_row cart-summary_total">
                             <strong>Total</strong>
-                            <strong>${{ "%.2f"|format(total) }}</strong>
+                            <strong>₹{{ "%.2f"|format(total) }}</strong>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-full btn-lg">
-                            <i class="fa fa-lock"></i> Place Order — ${{ "%.2f"|format(total) }}
+                            <i class="fa fa-lock"></i> Place Order — ₹{{ "%.2f"|format(total) }}
                         </button>
                         <p class="checkout-terms">By placing your order you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
                     </div>

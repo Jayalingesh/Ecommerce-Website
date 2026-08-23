@@ -44,9 +44,9 @@
             </div>
 
             <div class="product-detail_price">
-                <span class="price--current price--lg">${{ "%.2f"|format(product.price) }}</span>
+                <span class="price--current price--lg">₹{{ "%.2f"|format(product.price) }}</span>
                 {% if product.original_price %}
-                    <span class="price--original">${{ "%.2f"|format(product.original_price) }}</span>
+                    <span class="price--original">₹{{ "%.2f"|format(product.original_price) }}</span>
                     <span class="price--save">
                         {{ "%.2f"|format((product.original_price - product.price) / product.original_price * 100) }}% OFF
                     </span>
@@ -90,7 +90,7 @@
             </form>
 
             <div class="product-detail_meta">
-                <div><i class="fa fa-truck"></i> Free shipping on orders over $100</div>
+                <div><i class="fa fa-truck"></i> Free shipping on orders over ₹1000</div>
                 <div><i class="fa fa-rotate-left"></i> 30-day free returns</div>
                 <div><i class="fa fa-shield-alt"></i> 2-year manufacturer warranty</div>
             </div>
@@ -120,7 +120,7 @@
                     <tr><th>Rating</th><td>{{ product.rating }}  / 5.0</td></tr>
                     <tr><th>Reviews</th><td>{{ product.reviews }}</td></tr>
                     <tr><th>Stocks</th><td>{{ product.stock }} units</td></tr>
-                    <tr><th>Price</th><td>${{ "%.2f"|format(product.price) }}</td></tr>
+                    <tr><th>Price</th><td>₹{{ "%.2f"|format(product.price) }}</td></tr>
                     {% for f in product.features %}
                     <tr><th>Feature {{ loop.index }}</th><td>{{ f }}</td></tr>
                     {% endfor %}
@@ -177,7 +177,7 @@
                 <div class="product-card_body">
                     <h3 class="product-card_name"><a href="{{ url_for('product_details', product_id=p.id) }}">{{ p.name }}</a></h3>
                     <div class="product-card_price">
-                        <span class="price-current">${{ "%.2f"|format(p.price) }}</span>
+                        <span class="price-current">₹{{ "%.2f"|format(p.price) }}</span>
                     </div>
                 </div>
             </div>

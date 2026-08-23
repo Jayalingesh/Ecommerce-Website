@@ -6,17 +6,17 @@ app = Flask(__name__)
 app.secret_key = "ecommerce_secret_key_2026"
 
 PRODUCTS = [
-    {"id": 1,"name": "Wireless Noise-Cancelling Headphones", "price": 299.99, "original_price": 399.99, "category": "Electronics", "rating": 4.8, "reviws": 1240, "stock": 15, "badge": "Best Seller", "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80", "description": "Premium wireless headphones with 40-hour battery life, active noise cancellation, and studio-quality sound. Foldable design with carrying case included.", "features": ["40-hour battery", "Active Noise Cancellation", "Bluetooth 5.0", "Fast charge (10min = 3hrs)"]},
+    {"id": 1,"name": "Wireless Noise-Cancelling Headphones", "price": 2392.99, "original_price": 3192.99, "category": "Electronics", "rating": 4.8, "reviws": 1240, "stock": 15, "badge": "Best Seller", "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80", "description": "Premium wireless headphones with 40-hour battery life, active noise cancellation, and studio-quality sound. Foldable design with carrying case included.", "features": ["40-hour battery", "Active Noise Cancellation", "Bluetooth 5.0", "Fast charge (10min = 3hrs)"]},
 
-    {"id": 2, "name": "Mechanical Gaming Keyboard", "price": 149.99, "original_price": 189.99, "category": "Electronics", "rating": 4.7, "reviews": 876, "stock": 30,
+    {"id": 2, "name": "Mechanical Gaming Keyboard", "price": 1192.99, "original_price": 1512.99, "category": "Electronics", "rating": 4.7, "reviews": 876, "stock": 30,
      "badge": "Hot",
      "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400&q=80",
      "description": "RGB backlit mechanical keyboard with tactile switches, n-key rollover, and aluminum frame. Perfect for gaming and productivity.",
      "features": ["Cherry MX switches", "Per-key RGB", "Aluminum frame", "Detachable USB-C cable"]},
 
      {"id": 3, 
-        "name": "4K Ultra HD Monitor 27\"", "price": 499.99, 
-        "original_price": 649.99,
+        "name": "4K Ultra HD Monitor 27\"", "price": 39920.99, 
+        "original_price": 51920.99,
         "category": "Electronics", 
         "rating": 4.9, 
         "reviews": 543, 
@@ -30,8 +30,8 @@ PRODUCTS = [
     {
         "id": 4, 
         "name": "Smart Fitness Watch", 
-        "price": 249.99, 
-        "original_price": 299.99,
+        "price": 1992.99, 
+        "original_price": 2392.99,
         "category": "Wearables", 
         "rating": 4.6, 
         "reviews": 2100, 
@@ -44,8 +44,8 @@ PRODUCTS = [
 
     {
         "id": 5, 
-        "name": "Ergonomic Office Chair", "price": 399.99, 
-        "original_price": 549.99,
+        "name": "Ergonomic Office Chair", "price": 13920.99, 
+        "original_price": 23920.99,
         "category": "Furniture", 
         "rating": 4.5, 
         "reviews": 389, 
@@ -58,8 +58,8 @@ PRODUCTS = [
 
     {
         "id": 6, 
-        "name": "Professional Camera Drone", "price": 799.99, 
-        "original_price": 999.99,
+        "name": "Professional Camera Drone", "price": 63920.99, 
+        "original_price": 79920.99,
         "category": "Electronics", 
         "rating": 4.8, 
         "reviews": 234, 
@@ -72,8 +72,8 @@ PRODUCTS = [
 
     {
         "id": 7, 
-        "name": "Portable Bluetooth Speaker", "price": 89.99, 
-        "original_price": 119.99,
+        "name": "Portable Bluetooth Speaker", "price": 712.99, 
+        "original_price": 952.99,
         "category": "Electronics", 
         "rating": 4.4, 
         "reviews": 1567, 
@@ -87,8 +87,8 @@ PRODUCTS = [
     {
         "id": 8, 
         "name": "Standing Desk 60\"", 
-        "price": 549.99, 
-        "original_price": 699.99,
+        "price": 4392.99, 
+        "original_price": 5592.99,
         "category": "Furniture", 
         "rating": 4.7, 
         "reviews": 712, 
@@ -101,8 +101,8 @@ PRODUCTS = [
 
     {
         "id": 9, 
-        "name": "Wireless Charging Pad", "price": 39.99, 
-        "original_price": 59.99,
+        "name": "Wireless Charging Pad", "price": 3120.99, 
+        "original_price": 4720.99,
         "category": "Accessories", 
         "rating": 4.3, 
         "reviews": 3200, 
@@ -115,8 +115,8 @@ PRODUCTS = [
 
     {
         "id": 10, 
-        "name": "Noise-Cancelling Earbuds", "price": 179.99, 
-        "original_price": 229.99,
+        "name": "Noise-Cancelling Earbuds", "price": 1432.99, 
+        "original_price": 1832.99,
         "category": "Electronics", 
         "rating": 4.7, 
         "reviews": 4521, 
@@ -130,8 +130,8 @@ PRODUCTS = [
     {
         "id": 11, 
         "name": "Smart Home Hub", 
-        "price": 129.99, 
-        "original_price": 159.99,
+        "price": 10320.99, 
+        "original_price": 12720.99,
         "category": "Smart Home", 
         "rating": 4.5, 
         "reviews": 890, 
@@ -144,14 +144,14 @@ PRODUCTS = [
 
     {
         "id": 12, 
-        "name": "Laptop Stand Adjustable", "price": 59.99, 
-        "original_price": 79.99,
+        "name": "Laptop Stand Adjustable", "price": 472.99, 
+        "original_price": 632.99,
         "category": "Accessories", 
         "rating": 4.6, 
         "reviews": 2340, 
         "stock": 80,
         "badge": "Best Seller",
-        "image": "https://images.unsplash.com/photo-1593642632632-4f8b9b3c4b7b?w=400&q=80",
+        "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&q=80",
         "description": "Aluminum laptop stand with 6 height angles, foldable design, and universal compatibility for 10-17 inch laptops.",
         "features": ["6 height settings", "Aluminum build", "Foldable portable", "10-17\" compatible"]
     },
@@ -266,7 +266,7 @@ def cart():
                            items=items,
                            total=cart_total(),
                            cart_count=cart_count(),
-                           user=get_cart())
+                           user=get_user())
 
 @app.route("/cart/add/<int:product_id>", methods=["POST"])
 def add_to_cart(product_id):
@@ -295,7 +295,7 @@ def update_cart():
     return redirect(url_for("cart"))
 
 @app.route("/cart/remove/<int:product_id>")
-def remove_form_cart(product_id):
+def remove_from_cart(product_id):
     cart = get_cart()
     cart.pop(str(product_id), None)
     save_cart(cart)
@@ -315,7 +315,7 @@ def checkout():
         product = next((p for p in PRODUCTS if p["id"] == int(pid)), None)
         if product:
             items.append({**product, "qty": item["qty"],
-                          "subtotal": round(prodct["price"] * item["qty"], 2)})
+                          "subtotal": round(product["price"] * item["qty"], 2)})
 
     subtotal = cart_total()
     shipping = 0 if subtotal >= 100 else 9.99
@@ -326,7 +326,7 @@ def checkout():
         order = {
             "id": f"ORD-{len(USERS.get(session.get('user_email', ''), {}).get('orders', [])) + 1001}",
             "items": items,
-            "subtotal": shipping,
+            "subtotal": subtotal,
             "tax": tax,
             "total": total,
             "name": request.form.get("name"),
@@ -353,7 +353,7 @@ def checkout():
 def order_success():
     order = session.get("last_order")
     if not order:
-        return redirect(url_for("index.html"))
+        return redirect(url_for("index"))
     return render_template("order_success.html",
                            order=order,
                            cart_count=cart_count(),

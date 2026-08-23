@@ -36,7 +36,7 @@
     <div class="trust-bar_inner">
         <div class="trust-bar_item">
             <i class="fa fa-truck"></i>
-            <span>Free Shipping over $100.</span>
+            <span>Free Shipping over ₹1000.</span>
         </div>
         <div class="trust-bar_item"><i class="fa fa-rotate-left"></i>
         <span>30-days Returns</span></div>
@@ -111,10 +111,10 @@
                         <span>({{ p.reviews }})</span>
                     </div>
                     <div class="product-card_price">
-                        <span class="price-current">${{ "%.2f"|format(p.price) }}</span>
+                        <span class="price-current">₹{{ "%.2f"|format(p.price) }}</span>
                         {% if p.original_price %}
-                            <span class="price--original">${{ "%.2f"|format(p.original_price) }}</span>
-                            <span class="price--save">Save ${{ "%.2f"|format(p.original_price - p.price) }}</span>
+                            <span class="price--original">₹{{ "%.2f"|format(p.original_price) }}</span>
+                            <span class="price--save">Save ₹{{ "%.2f"|format(p.original_price - p.price) }}</span>
                         {% endif %}
                     </div>
                     <form action="{{ url_for('add_to_cart', product_id=p.id) }}" method="POST">
@@ -165,7 +165,7 @@
                     <div class="product-card_cat">{{ p.category }}</div>
                     <h3 class="product-card_name"><a href="{{ url_for('product_details', product_id=p.id) }}">{{ p.name }}</a></h3>
                     <div class="product-card_price">
-                        <span class="price--current">${{ "%.2f"|format(p.price) }}</span>
+                        <span class="price--current">₹{{ "%.2f"|format(p.price) }}</span>
                     </div>
                     <form action="{{ url_for('add_to_cart', product_id=p.id) }}" method="POST">
                         <input type="hidden" name="qty" value="1" />

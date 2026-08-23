@@ -180,7 +180,7 @@ input, select, button, textarea {
     width: 100%;
     padding: .7rem 1rem;
     background: var(--surface);
-    border: 1.5rem solid var(--border);
+    border: 1.5px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--text);
     font-style: .9rem;

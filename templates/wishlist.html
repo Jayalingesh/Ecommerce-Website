@@ -22,9 +22,9 @@
                 <div class="product-card_cat">{{ p.category }}</div>
                 <h3 class="product-card_name"><a href="{{ url_for('product_details', product_id = p.id) }}">{{ p.name }}</a></h3>
                 <div class="product-card_price">
-                    <span class="price-current">${{ "%.2f"|format(p.price) }}</span>
+                    <span class="price-current">₹{{ "%.2f"|format(p.price) }}</span>
                     {% if p.original_price %}
-                    <span class="price-original">${{ "%.2f"|format(p.original_price) }}</span>
+                    <span class="price-original">₹{{ "%.2f"|format(p.original_price) }}</span>
                     {% endif %}
                 </div>
                 <form action="{{ url_for('add_to_cart', product_id=p.id) }}" method="POST">

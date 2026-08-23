@@ -44,9 +44,9 @@
                     <div class="filter-group">
                         <label class="filter-group_label">Price Range</label>
                         <div class="price-range">
-                            <input type="number" name="min_price" placeholder="Min $" min="0" class="form-input form-input--sm" />
+                            <input type="number" name="min_price" placeholder="Min ₹" min="0" class="form-input form-input--sm" />
                             <span>—</span>
-                            <input type="number" name="max_price" placeholder="Max $" min="0" class="form-input form-input--sm">
+                            <input type="number" name="max_price" placeholder="Max ₹" min="0" class="form-input form-input--sm">
                         </div>
                         <button type="submit" class="btn btn-primary btn-full btn-sm" style="margin-top: 10px">Apply</button>
                     </div>
@@ -93,9 +93,9 @@
                             <span>({{ p.reviews }})</span>
                         </div>
                         <div class="product-card_price">
-                            <span class="price--current">${{ "%.2f"|format(p.price) }}</span>
+                            <span class="price--current">₹{{ "%.2f"|format(p.price) }}</span>
                             {% if p.original_price %}
-                                <span class="price--original">${{ "%.2f"|format(p.original_price) }}</span>
+                                <span class="price--original">₹{{ "%.2f"|format(p.original_price) }}</span>
                             {% endif %}
                         </div>
                         <div class="product-card_stock">

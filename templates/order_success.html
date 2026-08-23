@@ -11,18 +11,18 @@
             <span class="order-status">{{ order.status }}</span>
         </div>
         <div class="order-card_items">
-            {% for item in order.items %}
+            {% for item in order["items"] %}
             <div class="order-item">
                 <img src="{{ item.image }}" alt="{{ item.name }}" />
                 <span>{{ item.name }}</span>
                 <span>× {{ item.qty }}</span>
-                <span>${{ "%.2f"|format(item.subtotal) }}</span>
+                <span>₹{{ "%.2f"|format(item.subtotal) }}</span>
             </div>
             {% endfor %}
         </div>
         <div class="order-card_footer">
             <div><strong>Shipping to:</strong> {{ order.address }}, {{ order.city }}</div>
-            <div><strong>Order Total:</strong> ${{ "%.2f"|format(order.total) }}</div>
+            <div><strong>Order Total:</strong> ₹{{ "%.2f"|format(order.total) }}</div>
         </div>
     </div>
     
