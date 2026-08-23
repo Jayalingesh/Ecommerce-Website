@@ -58,7 +58,7 @@ input, select, button, textarea {
     padding: 5rem 0;
 }
 
-.section--alt{
+.section-alt{
     background: var(--bg2);
 }
 
@@ -504,7 +504,7 @@ input, select, button, textarea {
     gap: .25rem;
 }
 
-.nav__mobile a { 
+.nav_mobile a { 
     padding: .65rem .75rem; 
     border-radius: var(--radius-sm); font-size: .95rem; 
     color: var(--text-muted); 
@@ -912,7 +912,7 @@ input, select, button, textarea {
     font-size: 1.8rem; 
 }
 
-.product-card__stock { 
+.product-card_stock { 
     font-size: .8rem; 
     margin-bottom: .75rem; 
 }
@@ -930,7 +930,7 @@ input, select, button, textarea {
     color: var(--accent2); 
 }
 
-.stock-low i, .stock--ok i, .stock--out i {
+.stock-low i, .stock-ok i, .stock-out i {
     margin-right: .3rem; 
 }
 
@@ -1056,7 +1056,7 @@ input, select, button, textarea {
     padding-bottom: 2rem; 
 }
 
-.page-hero--sm h1 { 
+.page-hero-sm h1 { 
     font-size: 1.8rem; 
 }
 
@@ -2226,7 +2226,7 @@ hr {
     overflow: hidden; 
 }
 
-.order-card__header { 
+.order-card_header { 
     display: flex; 
     justify-content: space-between; align-items: center; 
     padding: 1.25rem 1.5rem; 
