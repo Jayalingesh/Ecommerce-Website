@@ -14,7 +14,7 @@
         {% if message %}
             <div class="flashed-container">
                 {% for cat, msg in message %}
-                    <div class="flashed flash--{{ cat }}">
+                    <div class="flashed flash-{{ cat }}">
                         <i class="fa {{ 'fa-check-circle' if cat == 'success' else 'fa-exclamation-circle' }}"></i>
                         {{ msg }}
                         <button class="flashed-close" onclick="this.parentElement.remove()">x</button>
@@ -46,7 +46,7 @@
                 <a href="{{ url_for('wishlist') }}" class="nav_action" title="Wishlist">
                     <i class="fa fa-heart"></i>
                 </a>
-                <a href="{{ url_for('cart') }}" class="nav_action nav_action--cart" title="Cart">
+                <a href="{{ url_for('cart') }}" class="nav_action nav_action-cart" title="Cart">
                     <i class="fa fa-shopping-bag"></i>
                     {% if cart_count > 0 %}
                         <span class="nav-badge">
@@ -80,8 +80,8 @@
                         </div>
                     </div>
                 {% else %}
-                    <a href="{{ url_for('login') }}" class="btn btn--ghost btn--sm">Sign In</a>
-                    <a href="{{ url_for('register') }}" class="btn btn--primary btn--sm">Register</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-ghost btn-sm">Sign In</a>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">Register</a>
                 {% endif %}
                 <button class="nav_burger" id="navBurger">
                     <i class="fa fa-bars"></i>
@@ -105,7 +105,7 @@
             {% endif %}
         </div>
 
-        <div class="nav_cats">
+        <div class="category-nav">
             <a href="{{ url_for('products') }}">All</a>
             <a href="{{ url_for('products') }}?category=Electronics">Electronics</a>
             <a href="{{ url_for('products') }}?category=Wearables">Wearables</a>
@@ -155,7 +155,7 @@
         </div>
         <div class="footer_bottom">
             <p>© 2024 NexaShop. All rights reserved.</p>
-            <div class="footer__payments">
+            <div class="footer_payments">
             <i class="fab fa-cc-visa"></i>
             <i class="fab fa-cc-mastercard"></i>
             <i class="fab fa-cc-amex"></i>
