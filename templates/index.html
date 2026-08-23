@@ -7,8 +7,8 @@
             <span class="hero_eyebrow">New Arrivals 2026</span>
             <h1 class="hero_title">Tech That<br><em>Elevates</em> Your <br>
             Everyday</h1>
-            <p class="hero_sub">Curated premiuum electronics, smart home devvices, and productivity gear=all in one place. Free shipping over $100.</p>
-            <div class="heroa_actions">
+            <p class="hero_sub">Curated premium electronics, smart home devices, and productivity gear — all in one place.</p>
+            <div class="hero_actions">
                 <a href="{{ url_for('products') }}" class="btn btn--primary btn--lg">Shop Now <i class="fa fa-arrow-right"></i></a>
                 <a href="{{ url_for('products') }}?category=Electronics" class="btn btn--ghost btn--lg">Electronics</a>
             </div>
@@ -20,12 +20,12 @@
         </div>
         <div class="hero_visual">
             <div class="hero_img-wrap">
-                <img src="https://images.unsplash.com/phot0-1505740420928-5e560c06d30e?w=600&q=80" alt="Premium Headphones" />
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Premium Headphones" />
                 <div class="hero_float hero_float-1">
                     <i class="fa fa-star"></i>4.8 Rating
                 </div>
                 <div class="hero_float hero_float-2">
-                    <i class="fa fa-truck">Free Shipping</i>
+                    <i class="fa fa-truck"></i> Free Shipping
                 </div>
             </div>
         </div>
@@ -34,10 +34,16 @@
 
 <div class="trust-bar">
     <div class="trust-bar_inner">
-        <div class="trust-bar_item"><i class="fa fa-truck"><span>Free Shipping over $100.</span></i></div>
-        <div class="trust-bar_item"><i class="fa fa-rotate-left"><span>30-days Returns</span></i></div>
-        <div class="trust-bar_item"><i class="fa fa-sheid-alt"><span>2-Year Warranty</span></i></div>
-        <div class="trust-bar_item"><i class="fa fa-headset"><span>24/7 Support</span></i></div>
+        <div class="trust-bar_item">
+            <i class="fa fa-truck"></i>
+            <span>Free Shipping over $100.</span>
+        </div>
+        <div class="trust-bar_item"><i class="fa fa-rotate-left"></i>
+        <span>30-days Returns</span></div>
+        <div class="trust-bar_item"><i class="fa fa-shield-alt"></i>
+        <span>2-Year Warranty</span></div>
+        <div class="trust-bar_item"><i class="fa fa-headset"></i>
+        <span>24/7 Support</span></div>
         
         
     </div>
@@ -47,7 +53,7 @@
     <div class="container">
         <div class="section_header">
             <h2>Shop by Category</h2>
-            <a href="{{ url_for('products') }}" class="section_link">Veiw all<i class="fa fa-arrow-right"></i></a>
+            <a href="{{ url_for('products') }}" class="section_link">View all<i class="fa fa-arrow-right"></i></a>
         </div>
         <div class="cat-grid">
             <a href="{{ url_for('products') }}?category=Electronics" class="cat-card cat-card-electronics">
@@ -60,7 +66,7 @@
                 <span>Wearables</span>
                 <em>45+ items</em>
             </a>
-            <a href="{{ url_for('products') }}?category=accessories" class="cat-card cat-card-accessories">
+            <a href="{{ url_for('products') }}?category=Accessories" class="cat-card cat-card-accessories">
                 <i class="fa fa-plug"></i>
                 <span>Accessories</span>
                 <em>200+ items</em>
@@ -78,37 +84,37 @@
     <div class="container">
         <div class="section_header">
             <h2>Best Sellers</h2>
-            <a href="{{ url_for('product') }}" class="section_link">View all<i class="fa fa-arrow-right"></i></a>
+            <a href="{{ url_for('products') }}" class="section_link">View all<i class="fa fa-arrow-right"></i></a>
         </div>
         <div class="product-grid">
             {% for p in featured %}
             <div class="product-card" data-id="{{ p.id }}">
                 <div class="product-card_img-wrap">
                     <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" />
-                    {{% if p.badge %}}
+                    {% if p.badge %}
                         <span class="product-card_badge badge--{{ p.badge.lower().replace(' ', '-') }}">{{ p.badge }}</span>
-                    {{% endif %}}
+                    {% endif %}
                     <div class="product-card_overlay">
                         <a href="{{ url_for('product_details', product_id=p.id) }}" class="btn btn--primary btn--sm">View Details</a>
-                        <a href="{{ urla-for('toggle_wishlist', product_id=p.id) }}" class="btn btn--ghost btn--sm btn--icon"><i class="fa fa-heart"></i></a>
+                        <a href="{{ url_for('toggle_wishlist', product_id=p.id) }}" class="btn btn--ghost btn--sm btn--icon"><i class="fa fa-heart"></i></a>
                     </div>
                 </div>
                 <div class="product-card_body">
                     <div class="product-card_cat">{{ p.category }}</div>
                     <h3 class="product-card_name">
-                        <a href="{{ url_for('product_detail', product_id=p.id) }}">{{ p.name }}</a>
+                        <a href="{{ url_for('product_details', product_id=p.id) }}">{{ p.name }}</a>
                     </h3>
-                    <div class="product-card_ratinng">
+                    <div class="product-card_rating">
                         {% for i in range(5) %}
                             <i class="fa fa-star{% if i >= p.rating|round|int %}-0{% endif %}"></i>
                         {% endfor %}
-                        <span>({ p.reviews })</span>
+                        <span>({{ p.reviews }})</span>
                     </div>
                     <div class="product-card_price">
                         <span class="price-current">${{ "%.2f"|format(p.price) }}</span>
                         {% if p.original_price %}
-                            <span class="price--original">${{ "%.2f|format(p.original_price) }}</span>
-                            <span class="price--save">Save ${{ "%.0f"|format(p.original_price -p.price) }}</span>
+                            <span class="price--original">${{ "%.2f"|format(p.original_price) }}</span>
+                            <span class="price--save">Save ${{ "%.2f"|format(p.original_price - p.price) }}</span>
                         {% endif %}
                     </div>
                     <form action="{{ url_for('add_to_cart', product_id=p.id) }}" method="POST">
@@ -126,14 +132,15 @@
 
 <section class="promo-banner">
     <div class="promo-banner_inner">
-        <div class="promo-bannera_text">
+        <div class="promo-banner_text">
             <span class="promo-banner_eyebrow">Limited Time Offer</span>
             <h2>Up to 40% Off<br>Premium Headphones</h2>
-            <p>Studio-quality audio at prices that  make sense. Shop our audio collection today.</p>
-            <a href="{{ url_for('product') }}?category=Electronics" class="btn btn--white btn--lg">Shop Audio</a>
+            <p>Studio-quality audio at prices that make sense. Shop our audio collection today.</p>
+            <a href="{{ url_for('products') }}?category=Electronics" class="btn btn--white btn--lg">Shop Audio</a>
         </div>
-        <div class="promoo-banner_img">
-            <img src="" alt="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80" alt="Earbuds">
+        <div class="promo-banner_img">
+            <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80"
+     alt="Earbuds">
         </div>
     </div>
 </section>
@@ -147,18 +154,18 @@
         <div class="product-grid product-grid-3">
             {% for p in new_arrivals %}
             <div class="product-card">
-                <div clcass="product-card_img-wrap">
+                <div class="product-card_img-wrap">
                     <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" />
                     <span class="product-card_badge badge--new">New</span>
                     <div class="product-card_overlay">
-                        <a href="{{ url_for('product_detail', product_id=p.id) }}" class="btn btn--primary btn--sm">View Details</a>
+                        <a href="{{ url_for('product_details', product_id=p.id) }}" class="btn btn--primary btn--sm">View Details</a>
                     </div>
                 </div>
                 <div class="product-card_body">
                     <div class="product-card_cat">{{ p.category }}</div>
                     <h3 class="product-card_name"><a href="{{ url_for('product_details', product_id=p.id) }}">{{ p.name }}</a></h3>
                     <div class="product-card_price">
-                        <span class="price--current">${{ "$.2f"|format(p.price) }}</span>
+                        <span class="price--current">${{ "%.2f"|format(p.price) }}</span>
                     </div>
                     <form action="{{ url_for('add_to_cart', product_id=p.id) }}" method="POST">
                         <input type="hidden" name="qty" value="1" />
@@ -185,5 +192,4 @@
         </div>
     </div>
 </section>
-
 {% endblock %}

@@ -21,7 +21,7 @@
             <div class="product-detail_main-img">
                 <img src="{{ product.image }}" alt="{{ product.name }}" id="mainImg" />
                 {% if product.badge %}
-                    <span class="product-card_badge badgge--{{ product.badge.lower().replace(' ', '-') }}">{{ product.badge }}</span>
+                    <span class="product-card_badge badge--{{ product.badge.lower().replace(' ', '-') }}">{{ product.badge }}</span>
                 {% endif %}
             </div>
             <div class="product-detail_thumbs">
@@ -59,7 +59,7 @@
                 <h4>Key Features</h4>
                 <ul>
                     {% for f in product.features %}
-                    <li><i class="fa fa-check"></i></li>
+                    <li><i class="fa fa-check"></i> {{ f }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -70,7 +70,7 @@
                 {% elif product.stock > 0 %}
                     <span class="stock-badge stock-badge--low"><i class="fa fa-exclamation-circle"></i> Low Stock — only {{ product.stock }} left!</span>
                 {% else %}
-                    <span class="stock-badge stock-badge--out"><i class="fa fatimes-circle"></i> Out of Stock</span>
+                    <span class="stock-badge stock-badge--out"><i class="fa fa-times-circle"></i> Out of Stock</span>
                 {% endif %}
             </div>
             
@@ -92,19 +92,19 @@
             <div class="product-detail_meta">
                 <div><i class="fa fa-truck"></i> Free shipping on orders over $100</div>
                 <div><i class="fa fa-rotate-left"></i> 30-day free returns</div>
-                <div><i class="fa fa-shshield-alt"></i> 2-year manufacturer warranty</div>
+                <div><i class="fa fa-shield-alt"></i> 2-year manufacturer warranty</div>
             </div>
         </div>
     </div>
 
     <div class="product-tabs">
         <div class="product-tabs_nav">
-            <button class="tab-btn active" data-tab="desccription">Description</button>
+            <button class="tab-btn active" data-tab="description">Description</button>
             <button class="tab-btn" data-tab="specs">Specifications</button>
             <button class="tab-btn" data-tab="reviews">Reviews ({{ product.reviews }})</button>
         </div>
         <div class="product-tabs_content">
-            <div class="tab-panel active" id="tab-descriptionn">
+            <div class="tab-panel active" id="tab-description">
                 <p>{{ product.description }}</p>
                 <br>
                 <p>Experience premium quality with our {{ product.name }}. Engineered for performance and designed for everyday use, this product delivers exceptional results that exceed expectations.</p>
@@ -116,11 +116,11 @@
             </div>
             <div class="tab-panel" id="tab-specs">
                 <table class="specs-table">
-                    <tr><th>category</th><td>{{ product.category }}</td></tr>
+                    <tr><th>Category</th><td>{{ product.category }}</td></tr>
                     <tr><th>Rating</th><td>{{ product.rating }}  / 5.0</td></tr>
                     <tr><th>Reviews</th><td>{{ product.reviews }}</td></tr>
                     <tr><th>Stocks</th><td>{{ product.stock }} units</td></tr>
-                    <tr><th>Price</th><td>${{ ".2f"|format(product.stock) }}</td></tr>
+                    <tr><th>Price</th><td>${{ "%.2f"|format(product.price) }}</td></tr>
                     {% for f in product.features %}
                     <tr><th>Feature {{ loop.index }}</th><td>{{ f }}</td></tr>
                     {% endfor %}
@@ -171,12 +171,12 @@
                 <div class="product-card_img-wrap">
                     <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy">
                     <div class="product-card_overlay">
-                        <a href="{{ url_for('product_detail', product_id=p.id) }}" class="btn btn--primary btn--sm">View</a>
+                        <a href="{{ url_for('product_details', product_id=p.id) }}" class="btn btn--primary btn--sm">View</a>
                     </div>
                 </div>
                 <div class="product-card_body">
-                    <h3 class="product-card_name"><a href="{{ url_for('product_detail', product_id=p.id) }}">{{ p.name }}</a></h3>
-                    <div class="priduct-card_price">
+                    <h3 class="product-card_name"><a href="{{ url_for('product_details', product_id=p.id) }}">{{ p.name }}</a></h3>
+                    <div class="product-card_price">
                         <span class="price-current">${{ "%.2f"|format(p.price) }}</span>
                     </div>
                 </div>
@@ -194,14 +194,16 @@
         el.classList.add('active');
     }
 
-    function changeQty(d){
-        const inp =document.getElementById('qtyInpuut');
-        inp.value = Math.max(1, Math.min(parseInt(inp.value) + d,{{ product.stock }}));
+    function changeQty(d) {
+        const inp = document.getElementById('qtyInput');
+        const current = parseInt(inp.value) || 1;
+        
+        inp.value = Math.max(1, Math.min(current + d, {{ product.stock }}));
     }
 
     document.querySelectorAll('.tab-btn').forEach(btn =>{
         btn.addEventListener('click', ()=>{
-            document.querySelectorAll('.tab-btn, .tab-pannel').forEach(el=>el.classList.add('active'));
+            document.querySelectorAll('.tab-btn, .tab-panel').forEach(el=>el.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
         });

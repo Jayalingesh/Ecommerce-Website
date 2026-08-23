@@ -1,4 +1,4 @@
-{$ extends "base.html" $}
+{% extends "base.html" %}
 {% block title %}Checkout — NexaShop{% endblock %}
 {% block content %}
 
@@ -53,14 +53,14 @@
                         </div>
                         <div class="form-group">
                             <label>ZIP / Postal Code</label>
-                            <input type="text" name="zip" class="form-input" placeholder="603-319" />
+                            <input type="text" name="zip" class="form-input" placeholder="603319" />
                         </div>
                         <div class="form-group">
                             <label>Country</label>
-                            <select type="text" name="country" class="form-input">
+                            <select  name="country" class="form-input">
                                 <option>India</option>
                                 <option>Sri Lanka</option>
-                                <option>Bangladhesh</option>
+                                <option>Bangladesh</option>
                                 <option>China</option>
                             </select>
                         </div>
@@ -75,7 +75,7 @@
                                 <strong>Standard Shipping</strong>
                                 <span>5-7 business days</span>
                             </div>
-                            <span class="shipping-option_price">{% if subtotsl >= 100 %}Free{% else %}$9.99{% endif %}</span>
+                            <span class="shipping-option_price">{% if subtotal >= 100 %}Free{% else %}$9.99{% endif %}</span>
                         </label>
                         <label class="shipping-option">
                             <input type="radio" name="shipping_method" value="express" />
@@ -149,9 +149,9 @@
                         </div>
                         <div class="cart-summary_row">
                             <span>Shipping</span>
-                            <span>{% if shipping == 0 %}<span class="free-ship">FREE</span>{% else %}${{ "%,2f"|format(shipping) }}{% endif %}</span>
+                            <span>{% if shipping == 0 %}<span class="free-ship">FREE</span>{% else %}${{ "%.2f"|format(shipping) }}{% endif %}</span>
                         </div>
-                        <div class="cart-summary__row">
+                        <div class="cart-summary_row">
                             <span>Tax</span><span>${{ "%.2f"|format(tax) }}</span>
                         </div>
                         <hr />

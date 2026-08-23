@@ -5,7 +5,7 @@
     <div class="container">
         <h1>
             {% if search %}Results for "{{ search }}"
-            {% elif selected_category !='All' %}{{ selected_category }}
+            {% elif selected_category != 'All' %}{{ selected_category }}
             {% else %}All Products
             {% endif %}
         </h1>
@@ -41,24 +41,24 @@
                         </select>
                     </div>
 
-                    <div cass="filter-group">
+                    <div class="filter-group">
                         <label class="filter-group_label">Price Range</label>
                         <div class="price-range">
                             <input type="number" name="min_price" placeholder="Min $" min="0" class="form-input form-input--sm" />
                             <span>—</span>
                             <input type="number" name="max_price" placeholder="Max $" min="0" class="form-input form-input--sm">
                         </div>
-                        <button type="submit" class="btn btn--primary btn--full btn--sm" style="margin-top: 10px">Apply</button>
+                        <button type="submit" class="btn btn-primary btn-full btn-sm" style="margin-top: 10px">Apply</button>
                     </div>
 
-                    <a href="{{ url_for('products') }}" class="btn btn--ghost btn--full btn--sm">Clear Filters</a>
+                    <a href="{{ url_for('products') }}" class="btn btn-ghost btn-full btn-sm">Clear Filters</a>
                 </form>
             </div>
         </aside>
 
         <div class="products-main">
             <div class="products-toolbar">
-                <span class="products-count">Showing {{ products|length }}products</span>
+                <span class="products-count">Showing {{ products|length }} products</span>
                 <div class="view-toggle">
                     <button class="view-btn active" data-view="grid" title="Grid"><i class="fa fa-th"></i></button>
                     <button class="view-btn" data-view="list" title="List"><i class="fa fa-list"></i></button>
@@ -75,8 +75,8 @@
                             <span class="product-card_badge badge--{{ p.badge.lower().replace(' ', '-') }}">{{ p.badge }}</span>
                         {% endif %}
                         <div class="product-card_overlay">
-                            <a href="{{ url_for('product_detail', product_id=p.id) }}" class="btn btn--primary btn--sm">View Details</a>
-                            <a href="{{ url_for('product_detail', product_id=p.id) }}" class="btn btn--ghost btn--sm btn--icon" title="Wishlist">
+                            <a href="{{ url_for('product_details', product_id=p.id) }}" class="btn btn-primary btn-sm">View Details</a>
+                            <a href="{{ url_for('toggle_wishlist', product_id=p.id) }}" class="btn btn-ghost btn-sm btn-icon" title="Wishlist">
                                 <i class="fa fa-heart"></i>
                             </a>
                         </div>
@@ -84,7 +84,7 @@
                     <div class="product-card_body">
                         <div class="product-card_cat">{{ p.category }}</div>
                         <h3 class="product-card_name">
-                            <a href="{{ url_for('product_detail', product_id=p.id) }}">{{ p.name }}</a>
+                            <a href="{{ url_for('product_details', product_id=p.id) }}">{{ p.name }}</a>
                         </h3>
                         <div class="product-card_rating">
                             {% for i in range(5) %}
@@ -99,18 +99,20 @@
                             {% endif %}
                         </div>
                         <div class="product-card_stock">
-                            {% if (p.stock <=5) %}
-                                <span class="stock--low"><i class="fa fa-exclamation-circle"></i>Only {{ p.stock }} left</span>
+                            {% if p.stock == 0 %}
+                                <span class="stock-out">Out of stock</span>
+                            {% elif (p.stock <= 5) %}
+                                <span class="stock-low"><i class="fa fa-exclamation-circle"></i>Only {{ p.stock }} left</span>
                             {% elif p.stock > 0 %}
-                                <span class="stock--ok"><i class="fa fa-check-circle"></i> In Stock</span>
+                                <span class="stock-ok"><i class="fa fa-check-circle"></i> In Stock</span>
                             {% else %}
-                                <span class="stock--out">Out of Stock</span>
+                                <span class="stock-out">Out of Stock</span>
                             {% endif %}
                         </div>
                         <form action="{{ url_for('add_to_cart', product_id=p.id) }}" method="POST">
-                            <input type="hidden" name="qty" vslue="1">
-                            <button type="submit" class="btn btn--primary btn--full" {% if p.stock == 0 %}disabled{% endif %}>
-                                <i class="fa f-shopping-bag"></i>Add to Cart
+                            <input type="hidden" name="qty" value="1">
+                            <button type="submit" class="btn btn-primary btn-full" {% if p.stock == 0 %}disabled{% endif %}>
+                                <i class="fa fa-shopping-bag"></i>Add to Cart
                             </button>
                         </form>
                     </div>
@@ -122,7 +124,7 @@
                 <i class="fa fa-search"></i>
                 <h3>No products found</h3>
                 <p>Try adjusting your filters or search term</p>
-                <a href="{{ url_for('products') }}" class="btn btn--primary">View All Products</a>
+                <a href="{{ url_for('products') }}" class="btn btn-primary">View All Products</a>
             </div>
             {% endif %}
         </div>

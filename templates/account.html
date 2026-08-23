@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}My Account — NexaShop{% endblock %}
 {% block content %}
-<div class="page-hero page-hero--sm">
+<div class="page-hero page-hero-sm">
     <div class="container">
         <h1>My Account</h1>
         <p>Welcome back, {{ user.name }}!</p>
@@ -20,7 +20,7 @@
             <nav class="account-nav">
                 <a href="{{ url_for('account') }}" class="active"><i class="fa fa-user"></i>Profile</a>
                 <a href="{{ url_for('wishlist') }}"><i class="fa fa-heart"></i>Wishlist</a>
-                <a href="{{ url_for('cart') }}"><i class="fa fa-shopping-bag"></i>Cartt</a>
+                <a href="{{ url_for('cart') }}"><i class="fa fa-shopping-bag"></i>Cart</a>
                 <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i>Sign Out</a>
             </nav>
         </aside>
@@ -28,9 +28,9 @@
             <div class="account-section">
                 <h3>Profile Information</h3>
                 <div class="profile-info">
-                    <div><label>Name</label><Span>{{ user.name }}</Span></div>
-                    <div><label>Email</label><Span>{{ user.email }}</Span></div>
-                    <div><label>Member Since</label><Span>2024</Span></div>
+                    <div><label>Name</label><span>{{ user.name }}</span></div>
+                    <div><label>Email</label><span>{{ user.email }}</span></div>
+                    <div><label>Member Since</label><span>2024</span></div>
                 </div>
             </div>
             <div class="account-section">
@@ -39,7 +39,7 @@
                     {% for order in user.orders %}
                     <div class="order-row">
                         <div><strong>{{ order.id }}</strong></div>
-                        <div>{{ order.time|length }} item{{ 's' if order.tems|lenth !=1 }}</div>
+                        <div>{{ order.items|length }} item{{ 's' if order.items|length !=1 }}</div>
                         <div>${{ "%.2f"|format(order.total) }}</div>
                         <div><span class="order-status">{{ order.status }}</span></div>
                     </div>

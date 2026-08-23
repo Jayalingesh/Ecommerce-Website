@@ -19,14 +19,14 @@
                     <div class="cart-item_cat">
                         {{ item.category }}
                     </div>
-                    <h3 class="cart-item_name"><a href="{{ url_for('product_detail', product_id=item.id) }}">{{ item.name }}</a></h3>
+                    <h3 class="cart-item_name"><a href="{{ url_for('product_details', product_id=item.id) }}">{{ item.name }}</a></h3>
                     <div class="cart-item_price">${{ "%.2f"|format(item.price) }} each</div>
                 </div>
                 <form action="{{ url_for('update_cart') }}" method="POST" class="cart-item_qty">
                     <input type="hidden" name="product_id" value="{{ item.id}}" />
                     <div class="qty-control qty-control-sm
                     ">
-                        <button type="submit" name="qty" name="{{ item.qty - 1 }}">_</button>
+                        <button type="submit" name="qty" value="{{ item.qty - 1 }}">-</button>
                         <span>{{ item.qty }}</span>
                         <button type="submit" name="qty" value="{{ item.qty + 1 }}">+</button>
                     </div>
@@ -45,13 +45,13 @@
         <div class="cart-summary">
             <div class="cart-summary-card">
                 <h3>Order Summary</h3>
-                <div class="cart-summary-row">
+                <div class="cart-summary_row">
                     <span>Shipping</span>
                     <span>{% if total >=100 %}<span class="free-ship">FREE</span>{% else %}$9.99{% endif %}</span>
                 </div>
                 <div class="cart-summary_row">
                     <span>Estimated Tax (8%)</span>
-                    <span>${{ "%.2f"|format(total * 0.88) }}</span>
+                    <span>${{ "%.2f"|format(total * 0.08) }}</span>
                 </div>
                 <hr />
                 <div class="cart-summary_row cart-summary_total">
@@ -61,7 +61,7 @@
                 {% if total < 100 %}
                 <div class="free-ship-progress">
                     <p>Add <strong>${{ "%.2f"|format(100 - total) }}</strong> more for free shipping!</p>
-                    <div class="ptogress-bar">
+                    <div class="progress-bar">
                         <div class="progress-bar_fill" style="width: {{ [(total / 100 * 100), 100]|min }}%"></div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
         <i class="fa fa-shopping-bag"></i>
         <h3>Your cart is empty</h3>
         <p>Looks like you haven't added anything to your cart yet.</p>
-        <a href="{[ url_fot('products') ]}" class="btn btn-primary">Start Shopping</a>
+        <a href="{{ url_for('products') }}" class="btn btn-primary">Start Shopping</a>
     </div>
     {% endif %}
 </div>
