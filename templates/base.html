@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
 </head>
 <body>
-    {% with message = get_flashed_messages(with_categories=true) %}
-        {% if message %}
-            <div class="flashed-container">
-                {% for cat, msg in message %}
-                    <div class="flashed flash-{{ cat }}">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for cat, msg in messages %}
+                    <div class="flash flash-{{ cat }}">
                         <i class="fa {{ 'fa-check-circle' if cat == 'success' else 'fa-exclamation-circle' }}"></i>
                         {{ msg }}
-                        <button class="flashed-close" onclick="this.parentElement.remove()">x</button>
+                        <button class="flash-close" onclick="this.parentElement.remove()">x</button>
                     </div>
                 {% endfor %}
             </div>

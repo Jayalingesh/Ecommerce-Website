@@ -7,13 +7,12 @@
     <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Thank you for your purchase. Your order is being processed.</p>
     <div class="order-card">
         <div class="order-card_header">
-            <span>Order ID: <strong>{{ order.id }}</strong></span>
+            <span>Order ID: <strong>{{ order.order_ref }}</strong></span>
             <span class="order-status">{{ order.status }}</span>
         </div>
         <div class="order-card_items">
             {% for item in order["items"] %}
             <div class="order-item">
-                <img src="{{ item.image }}" alt="{{ item.name }}" />
                 <span>{{ item.name }}</span>
                 <span>× {{ item.qty }}</span>
                 <span>₹{{ "%.2f"|format(item.subtotal) }}</span>

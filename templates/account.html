@@ -14,14 +14,24 @@
                 <div class="avatar-circle">{{ user.name[0].upper() }}</div>
                 <div>
                     <strong>{{ user.name }}</strong>
-                    <strong>{{ user.email }}</strong>
+                    <span>{{ user.email }}</span>
                 </div>
             </div>
             <nav class="account-nav">
-                <a href="{{ url_for('account') }}" class="active"><i class="fa fa-user"></i>Profile</a>
-                <a href="{{ url_for('wishlist') }}"><i class="fa fa-heart"></i>Wishlist</a>
-                <a href="{{ url_for('cart') }}"><i class="fa fa-shopping-bag"></i>Cart</a>
-                <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i>Sign Out</a>
+                <a href="{{ url_for('account') }}" class="active">
+                    <i class="fa fa-user"></i> Profile
+                </a>
+                <a href="{{ url_for('wishlist') }}">
+                    <i class="fa fa-heart"></i> Wishlist
+                </a>
+                <!-- 
+                <a href="{{ url_for('cart') }}">
+                    <i class="fa fa-shopping-bag"></i> Cart
+                </a>
+                -->
+                <a href="{{ url_for('logout') }}" class="account-logout">
+                    <i class="fa fa-sign-out"></i> Sign Out
+                </a>
             </nav>
         </aside>
         <div class="account-main">
@@ -30,24 +40,25 @@
                 <div class="profile-info">
                     <div><label>Name</label><span>{{ user.name }}</span></div>
                     <div><label>Email</label><span>{{ user.email }}</span></div>
-                    <div><label>Member Since</label><span>2024</span></div>
+                    <div><label>Member Since</label><span>{{ user.created_at[:10] if user.created_at else '-' }}</span></div>
                 </div>
             </div>
             <div class="account-section">
                 <h3>Order History</h3>
-                {% if user.orders %}
-                    {% for order in user.orders %}
+                {% if orders %}
+                    {% for order in orders %}
                     <div class="order-row">
-                        <div><strong>{{ order.id }}</strong></div>
+                        <div><strong>{{ order.order_ref }}</strong></div>
                         <div>{{ order.items|length }} item{{ 's' if order.items|length !=1 }}</div>
                         <div>₹{{ "%.2f"|format(order.total) }}</div>
                         <div><span class="order-status">{{ order.status }}</span></div>
+                        <div style="font-size: .8rem;color: var(--text-muted);">{{ order.created_at[:10] if order.created_at else '' }}</div>
                     </div>
                     {% endfor %}
                 {% else %}
                     <div class="empty-state" style="padding:2rem 0">
                         <i class="fa fa-box-open"></i>
-                        <p>No orders yet. <a href="{{ url_for('products') }}">Start shopping!</a></p>
+                        <p>No orders yet. <a href="{{ url_for('products') }}"> Start shopping!</a></p>
                     </div>
                 {% endif %}
             </div>
