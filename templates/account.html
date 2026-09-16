@@ -49,7 +49,7 @@
                     {% for order in orders %}
                     <div class="order-row">
                         <div><strong>{{ order.order_ref }}</strong></div>
-                        <div>{{ order.items|length }} item{{ 's' if order.items|length !=1 }}</div>
+                        <div>{{ order["items"]|length }} item{{ 's' if order["items"]|length !=1 }}</div>
                         <div>₹{{ "%.2f"|format(order.total) }}</div>
                         <div><span class="order-status">{{ order.status }}</span></div>
                         <div style="font-size: .8rem;color: var(--text-muted);">{{ order.created_at[:10] if order.created_at else '' }}</div>

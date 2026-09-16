@@ -3,8 +3,10 @@ import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "nexashop.db")
-
+DB_PATH = os.environ.get(
+    "DB_PATH",
+    os.path.join(os.path.dirname(__file__), "nexashop.db")
+)
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
